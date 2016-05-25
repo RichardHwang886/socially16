@@ -1,8 +1,47 @@
-<nav class="navbar navbar-light bg-faded">
-  <a class="navbar-brand" href="#">Socially</a>
-   <login-buttons class="pull-right"></login-buttons>
-</nav>
- 
-<div class="container-fluid">
-  <router-outlet></router-outlet>
-</div>
+<md-sidenav-layout class="demo-root" fullscreen>
+    <md-sidenav #start class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >
+        <md-nav-list>
+            <a md-list-item [routerLink]="['button']">Button</a>
+            <!--<a md-list-item [routerLink]="['card']">Card</a>
+      <a md-list-item [routerLink]="['checkbox']">Checkbox</a>
+      <a md-list-item [routerLink]="['gestures']">Gestures</a>
+      <a md-list-item [routerLink]="['grid-list']">Grid List</a>
+      <a md-list-item [routerLink]="['icon']">Icon</a>
+      <a md-list-item [routerLink]="['input']">Input</a>
+      <a md-list-item [routerLink]="['list']">List</a>
+      <a md-list-item [routerLink]="['live-announcer']">Live Announcer</a>
+      <a md-list-item [routerLink]="['overlay']">Overlay</a>
+      <a md-list-item [routerLink]="['portal']">Portal</a>
+      <a md-list-item [routerLink]="['progress-circle']">Progress Circle</a>
+      <a md-list-item [routerLink]="['progress-bar']">Progress Bar</a>
+      <a md-list-item [routerLink]="['radio']">Radio</a>
+      <a md-list-item [routerLink]="['sidenav']">Sidenav</a>
+      <a md-list-item [routerLink]="['toolbar']">Toolbar</a>
+      <a md-list-item [routerLink]="['tab-group']">Tab Group</a>-->
+        </md-nav-list>
+        <button md-button (click)="start.close()">CLOSE</button>
+    </md-sidenav>
+    <nav class="navbar navbar-light bg-faded">
+        <a class="navbar-brand" href="#">Socially</a>
+        <button md-icon-button (click)="start.open()">
+            <md-icon class="md-24" >menu</md-icon>
+        </button>
+
+        <login-buttons class="pull-right"></login-buttons>
+        <button md-button (click)="testGoHome2('home2')">testHome2</button>
+        <button md-raised-button [disabled]="isDisabled">off</button>
+        <button md-icon-button>
+    <md-icon class="md-24" (click)="testGoHome2('/')">主網頁</md-icon>
+</button>
+        <button md-fab>
+    <md-icon class="md-24">add</md-icon>
+</button>
+        <button md-mini-fab>
+    <md-icon class="md-24">add</md-icon>
+</button>
+    </nav>
+
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
+    </div>
+</md-sidenav-layout>

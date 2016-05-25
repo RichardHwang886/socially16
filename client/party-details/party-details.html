@@ -9,7 +9,8 @@
   <input [disabled]="!isOwner" type="text" [(ngModel)]="party.location.name">
 
   <button [disabled]="!isOwner" type="submit">Save</button>
-  <button [routerLink]="['/PartiesList']">Cancel</button>
+  <!--<button [routerLink]="['/PartiesList']">Cancel</button>-->
+  <a [routerLink]="['/PartiesList']">Cancel</a>
 </form>
 
 <ul *ngIf="isOwner || isPublic">
