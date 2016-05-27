@@ -14,6 +14,7 @@ import {MeteorComponent} from 'angular2-meteor';
 import {DisplayName} from '../lib/pipes';
 
 import {ANGULAR2_GOOGLE_MAPS_DIRECTIVES, MouseEvent} from 'angular2-google-maps/core';
+import {DialogService} from '../util/dialog.service';
 
 
 // function checkPermissions(next: ComponentInstruction, prev: ComponentInstruction) {
@@ -51,8 +52,10 @@ export class PartyDetails extends MeteorComponent
     implements OnActivate, CanDeactivate {
 
     party: Party;
+    oldParty: Party;
     users: Mongo.Cursor<Object>;
     user: Meteor.User;
+
 
     // Default center Palo Alto coordinates.
     centerLat: Number = 37.4292;
@@ -74,7 +77,7 @@ export class PartyDetails extends MeteorComponent
     //         this.getUsers(this.party);
     //     }, true);
     // }
-    constructor(private router: Router) {
+    constructor(private router: Router, private dialog: DialogService) {
         super();
         this.user = Meteor.user();
     }
@@ -106,7 +109,7 @@ export class PartyDetails extends MeteorComponent
         }
 
 
-
+        this.oldParty = party;
 
 
         this.subscribe('party', partyId, () => {
@@ -122,8 +125,11 @@ export class PartyDetails extends MeteorComponent
     }
 
     routerCanDeactivate(): any {
-
-        return true;
+        let isModified = !(this.oldParty.name === this.party.name);
+        if (isModified)
+            return this.dialog.confirm('Discard changes?');
+        else
+            return true;
         // // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged.
         // if (!this.crisis || this.crisis.name === this.editName) {
         //   return true;
@@ -147,7 +153,9 @@ export class PartyDetails extends MeteorComponent
     }
 
     saveParty(party) {
+        
         if (Meteor.userId()) {
+            this.oldParty = this.party;
             Parties.update(party._id, {
                 $set: {
                     name: party.name,

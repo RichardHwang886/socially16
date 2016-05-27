@@ -4,7 +4,7 @@ import { bootstrap } from 'angular2-meteor-auto-bootstrap';
 
 import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Routes, Router, OnActivate, RouteSegment} from '@angular/router';
 //import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Router} from '@angular/router-deprecated';
-import { APP_BASE_HREF } from '@angular/common';
+import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {PartiesList} from './parties-list/parties-list';
 
@@ -34,6 +34,10 @@ import {OVERLAY_CONTAINER_TOKEN} from '@angular2-material/core/overlay/overlay';
 import {MdLiveAnnouncer} from '@angular2-material/core/live-announcer/live-announcer';
 import {createOverlayContainer} from '@angular2-material/core/overlay/overlay-container';
 
+// DI services
+import { DialogService }         from './util/dialog.service';
+//import { Media } from './util/media';
+
 import { ButtonDemo } from './md/button/button-demo';
 import { Home2 } from './home2';
 //import {LoginButtonsRh} from './loginButtonsRh';
@@ -47,6 +51,7 @@ import { Home2 } from './home2';
 @Component({
     selector: 'app',
     templateUrl: '/client/app.html',
+    providers: [DialogService],
     directives: [ROUTER_DIRECTIVES, LoginButtons,
         Dir,
         MdButton, MdAnchor,
@@ -82,9 +87,30 @@ class Socially implements OnActivate {
     /**
      *
      */
-
+    mySideNavMode: string;  //`mode` | `"over"|"push"|"side"` | 
+    mySideNavOpened:boolean; //`opened` | `boolean`
     private currRoteSegment: RouteSegment;
-    constructor(private router: Router) {
+    constructor(private router: Router, private _zone: NgZone) {
+        const mql: MediaQueryList = window.matchMedia('(min-width: 600px)');
+
+        //this.mySideNavMode = 'side';  //`mode` | `"over"|"push"|"side"` | 
+        //this.mySideNavOpened=true;
+         this.mySideNavOpened= mql.matches;
+         this.mySideNavMode = mql.matches ? 'side' : 'over';  //`mode` | `"over"|"push"|"side"` | 
+               
+
+        mql.addListener((mql: MediaQueryList) => {
+            // document.body.querySelector('#element').innerHTML = this.getText(mql);
+
+            _zone.run(() => {
+              //  var mySideNav= document.body.querySelector('#start');
+             //   if (mySideNav.ha)
+                this.mySideNavOpened= mql.matches;
+                this.mySideNavMode = mql.matches ? 'side' : 'over';  //`mode` | `"over"|"push"|"side"` | 
+                //console.log('detect -->' + this.mySideNavMode);
+            });
+
+        });
 
         // myRouter = router.root;
 
@@ -131,6 +157,7 @@ bootstrap(Socially, [ROUTER_PROVIDERS, ANGULAR2_GOOGLE_MAPS_PROVIDERS,
     provide(OVERLAY_CONTAINER_TOKEN, { useValue: createOverlayContainer() }),
     Renderer,
     provide(APP_BASE_HREF, { useValue: '/' }),
+    provide(LocationStrategy, { useClass: HashLocationStrategy }),
     provide(LazyMapsAPILoaderConfig, {
         useFactory: () => {
             let config = new LazyMapsAPILoaderConfig();

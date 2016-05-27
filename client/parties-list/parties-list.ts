@@ -68,18 +68,18 @@ export class PartiesList extends MeteorComponent implements CanDeactivate {
 
         Tracker.autorun(function () {
             if (Meteor.userId()) {
-                console.log('tracker run user login in ....');
+               // console.log('tracker run user login in ....');
                 //this.router.navigate(['xxx',xxx]); # 有參數
                 //ex:this.router.navigate([`/heroes`, {id: heroId, foo: 'foo'}]);
                 //   myRouter.navigate(['/home']);
             } else {
-                console.log('tracker run user login out ....');
+               // console.log('tracker run user login out ....');
                     myRouter.navigate(['/']);
             }
         });
-        Accounts.onPageLoadLogin(() => {
-            console.log('onPageLoadLogin....');
-        });
+        // Accounts.onPageLoadLogin(() => {
+        //    // console.log('onPageLoadLogin....');
+        // });
 
         Accounts.onLogin(() => {
             console.log('on login ...');

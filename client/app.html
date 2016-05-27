@@ -1,5 +1,7 @@
 <md-sidenav-layout class="demo-root" fullscreen>
-    <md-sidenav #start class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >
+    <!--<md-sidenav #start class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" >-->
+
+    <md-sidenav #start   [mode]="mySideNavMode" [opened]="mySideNavOpened">
         <md-nav-list>
             <a md-list-item [routerLink]="['button']">Button</a>
             <!--<a md-list-item [routerLink]="['card']">Card</a>
@@ -23,7 +25,7 @@
     </md-sidenav>
     <nav class="navbar navbar-light bg-faded">
         <a class="navbar-brand" href="#">Socially</a>
-        <button md-icon-button (click)="start.open()">
+        <button md-icon-button (click)="start.open() " [hidden]="start.opened">
             <md-icon class="md-24" >menu</md-icon>
         </button>
 
@@ -36,6 +38,9 @@
         <button md-fab>
     <md-icon class="md-24">add</md-icon>
 </button>
+        <a href="http://www.google.com" md-fab>
+            <md-icon class="md-24">add</md-icon>
+        </a>
         <button md-mini-fab>
     <md-icon class="md-24">add</md-icon>
 </button>

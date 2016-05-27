@@ -43,14 +43,14 @@ export class RsvpPipe extends MeteorComponent {
 
         if (!this.init) {
             var partId =null;
-            console.log('rsvsp:step 1');
+           // console.log('rsvsp:step 1');
             this.autorun(() => {
                 try{
                     //20160523 有時從detail返回,會出現讀取錯誤
                    partId = party._id;
                 }
                 catch(e) {
-                    console.log('rsvsp:step 2 (partid error)');
+                    //console.log('rsvsp:step 2 (partid error)');
             
                 }
                 
@@ -59,7 +59,7 @@ export class RsvpPipe extends MeteorComponent {
                     if (party) {
                         this.total = party.rsvps ?
                             party.rsvps.filter(rsvp => rsvp.response === type).length : 0;
-                        console.log('rsvsp:step 3 ['+this.total +']['+party.rsvps+']');
+                      //  console.log('rsvsp:step 3 ['+this.total +']['+party.rsvps+']');
             
                     }
                 }
