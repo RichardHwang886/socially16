@@ -1,8 +1,8 @@
 import {Component, NgZone, provide, Renderer} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import { bootstrap } from 'angular2-meteor-auto-bootstrap';
-
-import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Routes, Router, OnActivate, RouteSegment} from '@angular/router';
+import {HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
+import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Routes, Route, Router, OnActivate, RouteSegment} from '@angular/router';
 //import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, Router} from '@angular/router-deprecated';
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy} from '@angular/common';
 
@@ -21,8 +21,11 @@ import { Accounts } from 'meteor/accounts-base';
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 
+// DI services
+import { DialogService }         from './util/dialog.service';
+//import { Media } from './util/media';
 
-// material
+// material design
 import { Dir } from '@angular2-material/core';
 import {MdButton, MdAnchor} from '@angular2-material/button/button';
 import {MdIcon} from '@angular2-material/icon/icon';
@@ -33,12 +36,30 @@ import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 import {OVERLAY_CONTAINER_TOKEN} from '@angular2-material/core/overlay/overlay';
 import {MdLiveAnnouncer} from '@angular2-material/core/live-announcer/live-announcer';
 import {createOverlayContainer} from '@angular2-material/core/overlay/overlay-container';
+import {MdGestureConfig} from '@angular2-material/core/gestures/MdGestureConfig';
 
-// DI services
-import { DialogService }         from './util/dialog.service';
-//import { Media } from './util/media';
 
-import { ButtonDemo } from './md/button/button-demo';
+import {CardDemo} from './md/card/card-demo';
+import {ButtonDemo} from './md/button/button-demo';
+import {CheckboxDemo} from './md/checkbox/checkbox-demo';
+import {GesturesDemo} from './md/gestures/gestures-demo';
+import {GridListDemo} from './md/grid-list/grid-list-demo';
+import {IconDemo} from './md/icon/icon-demo';
+import {InputDemo} from './md/input/input-demo';
+import {ListDemo} from './md/list/list-demo';
+import {LiveAnnouncerDemo} from './md/live-announcer/live-announcer-demo';
+//import {OverlayDemo} from './md/overlay/overlay-demo';
+import {PortalDemo} from './md/portal/portal-demo';
+import {ProgressBarDemo} from './md/progress-bar/progress-bar-demo';
+import {ProgressCircleDemo} from './md/progress-circle/progress-circle-demo';
+import {RadioDemo} from './md/radio/radio-demo';
+import {SidenavDemo} from './md/sidenav/sidenav-demo';
+import {SlideToggleDemo} from './md/slide-toggle/slide-toggle-demo';
+import {TabsDemo} from './md/tabs/tab-group-demo';
+import {ToolbarDemo} from './md/toolbar/toolbar-demo';
+
+
+import { Demo2App } from './md/demo2/demo2';
 import { Home2 } from './home2';
 //import {LoginButtonsRh} from './loginButtonsRh';
 //import {Accounts} from 'meteor/acount-helper';
@@ -67,12 +88,32 @@ import { Home2 } from './home2';
 //     { path: '/party/:partyId', as: 'PartyDetails', component: PartyDetails }
 // ])
 @Routes([
-    { path: '/', component: PartiesList },
-    { path: '/PartiesList', component: PartiesList },
-    { path: '/button', component: ButtonDemo },
+    //{ path: '/', component: Demo2App },
+    new Route({ path: '/', component: PartiesList }),
+    new Route({ path: '/PartiesList', component: PartiesList }),
+    new Route({ path: '/home2', component: Home2 }),
+    new Route({ path: '/PartyDetails/:partyId', component: PartyDetails }),
 
-    { path: '/home2', component: Home2 },
-    { path: '/PartyDetails/:partyId', component: PartyDetails }
+    new Route({ path: '/demo2', component: Demo2App }),
+
+    new Route({ path: '/button', component: ButtonDemo }),
+    new Route({ path: '/card', component: CardDemo }),
+    new Route({ path: '/checkbox', component: CheckboxDemo }),
+    new Route({ path: '/gestures', component: GesturesDemo }),
+    new Route({ path: '/grid-list', component: GridListDemo }),
+    new Route({ path: '/icon', component: IconDemo }),
+    new Route({ path: '/input', component: InputDemo }),
+    new Route({ path: '/radio', component: RadioDemo }),
+    new Route({ path: '/sidenav', component: SidenavDemo }),
+    new Route({ path: '/slide-toggle', component: SlideToggleDemo }),
+    new Route({ path: '/progress-circle', component: ProgressCircleDemo }),
+    new Route({ path: '/progress-bar', component: ProgressBarDemo }),
+    new Route({ path: '/portal', component: PortalDemo }),
+    // new Route({ path: '/overlay', component: OverlayDemo }),
+    new Route({ path: '/toolbar', component: ToolbarDemo }),
+    new Route({ path: '/list', component: ListDemo }),
+    new Route({ path: '/live-announcer', component: LiveAnnouncerDemo }),
+    new Route({ path: '/tabs', component: TabsDemo })
 ])
 
 
@@ -88,24 +129,24 @@ class Socially implements OnActivate {
      *
      */
     mySideNavMode: string;  //`mode` | `"over"|"push"|"side"` | 
-    mySideNavOpened:boolean; //`opened` | `boolean`
+    mySideNavOpened: boolean; //`opened` | `boolean`
     private currRoteSegment: RouteSegment;
     constructor(private router: Router, private _zone: NgZone) {
         const mql: MediaQueryList = window.matchMedia('(min-width: 600px)');
 
         //this.mySideNavMode = 'side';  //`mode` | `"over"|"push"|"side"` | 
         //this.mySideNavOpened=true;
-         this.mySideNavOpened= mql.matches;
-         this.mySideNavMode = mql.matches ? 'side' : 'over';  //`mode` | `"over"|"push"|"side"` | 
-               
+        this.mySideNavOpened = mql.matches;
+        this.mySideNavMode = mql.matches ? 'side' : 'over';  //`mode` | `"over"|"push"|"side"` | 
+
 
         mql.addListener((mql: MediaQueryList) => {
             // document.body.querySelector('#element').innerHTML = this.getText(mql);
 
             _zone.run(() => {
-              //  var mySideNav= document.body.querySelector('#start');
-             //   if (mySideNav.ha)
-                this.mySideNavOpened= mql.matches;
+                //  var mySideNav= document.body.querySelector('#start');
+                //   if (mySideNav.ha)
+                this.mySideNavOpened = mql.matches;
                 this.mySideNavMode = mql.matches ? 'side' : 'over';  //`mode` | `"over"|"push"|"side"` | 
                 //console.log('detect -->' + this.mySideNavMode);
             });
@@ -152,12 +193,18 @@ class Socially implements OnActivate {
 
 
 
-bootstrap(Socially, [ROUTER_PROVIDERS, ANGULAR2_GOOGLE_MAPS_PROVIDERS,
-    MdIconRegistry, HTTP_PROVIDERS, MdLiveAnnouncer,
-    provide(OVERLAY_CONTAINER_TOKEN, { useValue: createOverlayContainer() }),
-    Renderer,
+bootstrap(Socially, [
+    ROUTER_PROVIDERS, HTTP_PROVIDERS, Renderer,
     provide(APP_BASE_HREF, { useValue: '/' }),
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
+
+
+    //material
+    MdIconRegistry, MdLiveAnnouncer,
+    provide(OVERLAY_CONTAINER_TOKEN, { useValue: createOverlayContainer() }),
+    provide(HAMMER_GESTURE_CONFIG, { useClass: MdGestureConfig }),
+    //google map
+    ANGULAR2_GOOGLE_MAPS_PROVIDERS,
     provide(LazyMapsAPILoaderConfig, {
         useFactory: () => {
             let config = new LazyMapsAPILoaderConfig();

@@ -1,6 +1,6 @@
 @import "{}/node_modules/angular2-meteor-accounts-ui/build/login-buttons.scss";
 @import "{}/node_modules/angular2-pagination/build/pagination-controls-cmp.scss";
-@import "{}/node_modules/bootstrap/scss/bootstrap.scss";
+//@import "{}/node_modules/bootstrap/scss/bootstrap.scss";
 
 //@import "{}/node_modules/@angular2-material/core/overlay/overlay.scss";
 // @import "{}/node_modules/@angular2-material/core/live-announcer/live-announcer.css";
@@ -50,6 +50,8 @@ body {
   }
 }
 
-@import "../parties-list/_parties-list";
-@import "../party-details/_party-details";
-@import "../md/button/button-demo.scss";
+//@import "demo-app.scss";
+//@import "../parties-list/_parties-list";
+//@import "../party-details/_party-details";
+//@import "../md/button/button-demo.scss";
+

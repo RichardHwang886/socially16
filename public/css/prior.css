@@ -1,0 +1,6 @@
+
+/*include 在 index.html ,是可以最先適用的*/
+
+ md-sidenav {
+  min-width: 20% !important;
+}
