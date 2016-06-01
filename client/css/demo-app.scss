@@ -22,7 +22,11 @@
   .demo-content {
     padding: 32px;
   }
-
+  
+ .demo-fill-remaining {
+    flex: 1 1 auto;
+  }
+  
   md-toolbar {
     md-icon {
       cursor: pointer;
@@ -35,7 +39,5 @@
     }
   }
 
-  h1 {
-    font-size: 20px;
-  }
+ 
 }

@@ -5,9 +5,9 @@
 //@import "{}/node_modules/@angular2-material/core/overlay/overlay.scss";
 // @import "{}/node_modules/@angular2-material/core/live-announcer/live-announcer.css";
 
-
+//login 顯示較正
 .pull-right .login-buttons .content-container {
-  margin-left: -250px;
+  margin-left: -280px;
 }
 
 
@@ -33,22 +33,22 @@ body {
   height: 450px;
 }
 
-.navbar {
-  background-color: #ffffff;
-  border-bottom: #eee 1px solid;
-  color: $color3;
-  font-family: 'Muli', sans-serif;
-  a {
-    color: $color3;
-    text-decoration: none !important;
-  }
+// .navbar {
+//   background-color: #ffffff;
+//   border-bottom: #eee 1px solid;
+//   color: $color3;
+//   font-family: 'Muli', sans-serif;
+//   a {
+//     color: $color3;
+//     text-decoration: none !important;
+//   }
 
-  .navbar-right-container {
-    position: absolute;
-    top: 17px;
-    right: 17px;
-  }
-}
+//   .navbar-right-container {
+//     position: absolute;
+//     top: 17px;
+//     right: 17px;
+//   }
+// }
 
 //@import "demo-app.scss";
 //@import "../parties-list/_parties-list";
