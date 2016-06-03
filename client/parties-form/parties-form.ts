@@ -24,6 +24,8 @@ export class PartiesForm {
             name: ['', Validators.required],
             description: [''],
             location: ['', Validators.required],
+            lat:[''],
+            lng:[''],
             public: [false]
         });
     }
@@ -35,7 +37,9 @@ export class PartiesForm {
                     name: party.name,
                     description: party.description,
                     location: {
-                        name: party.location
+                        name: party.location,
+                        lat:Number(party.lat),
+                        lng:Number(party.lng)
                     },
                     public: party.public,
                     owner: Meteor.userId()
@@ -44,6 +48,8 @@ export class PartiesForm {
                 (<Control>this.partiesForm.controls['name']).updateValue('');
                 (<Control>this.partiesForm.controls['description']).updateValue('');
                 (<Control>this.partiesForm.controls['location']).updateValue('');
+                (<Control>this.partiesForm.controls['lat']).updateValue('');
+                (<Control>this.partiesForm.controls['lng']).updateValue('');
                 (<Control>this.partiesForm.controls['public']).updateValue(false);
             } else {
                 alert('Please log in to add a party');

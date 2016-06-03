@@ -13,23 +13,34 @@
 
 
 <md-card class="demo-card demo-basic">
-  <md-toolbar color="primary">Add New Party
-     <span class="demo-fill-remaining"></span>
-     <button md-mini-fab>
+    <md-toolbar color="primary">Add New Party
+        <span class="demo-fill-remaining"></span>
+        <button md-mini-fab>
            <md-icon class="md-24" (click)='addParty(f.value)' >add</md-icon>
      </button>
-  </md-toolbar>
-  <md-card-content>
-    <form #addPartyForm [ngFormModel]="partiesForm" #f="ngForm" (submit)="addParty(f.value)">
-      <md-input class="demo-full-width" ngControl="name" placeholder="Name" >
-      </md-input>
-       <md-input class="demo-full-width" ngControl="description" placeholder="Description" >
-      </md-input>
-       <md-input class="demo-full-width" ngControl="location" placeholder="Location" >
-      </md-input>
-      <md-checkbox ngControl="public">  <em>Public</em> the party? </md-checkbox>
-  
-      <!--<md-input class="demo-full-width" placeholder="Company (disabled)" disabled value="Google">
+    </md-toolbar>
+    <md-card-content>
+        <form #addPartyForm [ngFormModel]="partiesForm" #f="ngForm" (submit)="addParty(f.value)">
+            <md-input class="demo-full-width" ngControl="name" placeholder="Name">
+            </md-input>
+            <md-input class="demo-full-width" ngControl="description" placeholder="Description">
+            </md-input>
+            <md-input class="demo-full-width" ngControl="location" placeholder="Location">
+            </md-input>
+            <table style="width: 100%" cellspacing="0">
+                <tr>
+                    <td>
+                        <md-input class="demo-full-width" ngControl="lat" placeholder="latitude, ex:24.1" value="24.1"></md-input>
+                    </td>
+                    <td>
+                        <md-input class="demo-full-width" ngControl="lng" placeholder="longitude, ex:102.5" value="120.5"></md-input>
+                    </td>
+
+                </tr>
+            </table>
+            <md-checkbox ngControl="public"> <em>Public</em> the party? </md-checkbox>
+
+            <!--<md-input class="demo-full-width" placeholder="Company (disabled)" disabled value="Google">
       </md-input>
 
       <table style="width: 100%" cellspacing="0"><tr>
@@ -49,6 +60,6 @@
           <md-hint align="end">{{postalCode.characterCount}} / 5</md-hint>
         </md-input></td>
       </tr></table>-->
-    </form>
-  </md-card-content>
+        </form>
+    </md-card-content>
 </md-card>

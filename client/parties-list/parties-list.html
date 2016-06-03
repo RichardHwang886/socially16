@@ -10,7 +10,7 @@
             <button type="button" (click)="search(searchtext.value)">Search</button>
             <!--<accounts-ui></accounts-ui>-->
         </div>
-
+        <br/>
         <h1>Parties:</h1>
         <div>
             <select #sort (change)="changeSortOrder(sort.value)">
@@ -78,10 +78,10 @@
         </ul>-->
     </section>
 
-    <sebm-google-map [latitude]="24" [longitude]="120.7" [zoom]="8">
+    <sebm-google-map [latitude]="24" [longitude]="120.7" [zoom]="7">
         <!--<div *ngFor="let party of parties">-->
         <!--'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl']-->
-        <sebm-google-map-marker *ngFor="let party of parties"  [label]="party.location.name" [latitude]="party.location.lat" [longitude]="party.location.lng">
+        <sebm-google-map-marker *ngFor="let party of parties; let i = index" [label]="(i+1).toString()" [latitude]="party.location.lat" [longitude]="party.location.lng">
             <sebm-google-map-info-window>
                 <strong>{{party.location.name}}</strong>
             </sebm-google-map-info-window>
