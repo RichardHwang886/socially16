@@ -1,4 +1,4 @@
-<form [ngFormModel]="partiesForm" #f="ngForm" (submit)="addParty(f.value)">
+<!--<form [ngFormModel]="partiesForm" #f="ngForm" (submit)="addParty(f.value)">
   <label>Name</label>
   <input type="text" ngControl="name">
   <label>Description</label>
@@ -8,4 +8,47 @@
   <label>Public</label>
   <input type="checkbox" ngControl="public">
   <button>Add</button>
-</form>
+</form>-->
+
+
+
+<md-card class="demo-card demo-basic">
+  <md-toolbar color="primary">Add New Party
+     <span class="demo-fill-remaining"></span>
+     <button md-mini-fab>
+           <md-icon class="md-24" (click)='addParty(f.value)' >add</md-icon>
+     </button>
+  </md-toolbar>
+  <md-card-content>
+    <form #addPartyForm [ngFormModel]="partiesForm" #f="ngForm" (submit)="addParty(f.value)">
+      <md-input class="demo-full-width" ngControl="name" placeholder="Name" >
+      </md-input>
+       <md-input class="demo-full-width" ngControl="description" placeholder="Description" >
+      </md-input>
+       <md-input class="demo-full-width" ngControl="location" placeholder="Location" >
+      </md-input>
+      <md-checkbox ngControl="public">  <em>Public</em> the party? </md-checkbox>
+  
+      <!--<md-input class="demo-full-width" placeholder="Company (disabled)" disabled value="Google">
+      </md-input>
+
+      <table style="width: 100%" cellspacing="0"><tr>
+        <td><md-input placeholder="First name" style="width: 100%"></md-input></td>
+        <td><md-input placeholder="Long Last Name That Will Be Truncated" style="width: 100%"></md-input></td>
+      </tr></table>
+      <p>
+        <md-input class="demo-full-width" placeholder="Address" value="1600 Amphitheatre Pkway"></md-input>
+        <md-input class="demo-full-width" placeholder="Address 2"></md-input>
+      </p>
+      <table style="width: 100%" cellspacing="0"><tr>
+        <td><md-input class="demo-full-width" placeholder="City" value="Mountain View"></md-input></td>
+        <td><md-input class="demo-full-width" placeholder="State" maxLength="2" value="CA"></md-input></td>
+        <td><md-input #postalCode class="demo-full-width" maxLength="5"
+                      placeholder="Postal Code"
+                      value="94043">
+          <md-hint align="end">{{postalCode.characterCount}} / 5</md-hint>
+        </md-input></td>
+      </tr></table>-->
+    </form>
+  </md-card-content>
+</md-card>

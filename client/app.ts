@@ -57,7 +57,7 @@ import {SidenavDemo} from './md/sidenav/sidenav-demo';
 import {SlideToggleDemo} from './md/slide-toggle/slide-toggle-demo';
 import {TabsDemo} from './md/tabs/tab-group-demo';
 import {ToolbarDemo} from './md/toolbar/toolbar-demo';
-
+import {MeteorComponent,MeteorApp} from 'angular2-meteor';
 
 import { Demo2App } from './md/demo2/demo2';
 import { Home2 } from './home2';
@@ -118,7 +118,7 @@ import { Home2 } from './home2';
 
 
 
-class Socially implements OnActivate {
+class Socially  extends MeteorComponent implements OnActivate{
     // constructor(loginBtn:LoginButtons){
     //   //  loginBtn.prototype.
     //      loginBtn.logout =function(){
@@ -131,19 +131,25 @@ class Socially implements OnActivate {
     mySideNavMode: string;  //`mode` | `"over"|"push"|"side"` | 
     mySideNavOpened: boolean; //`opened` | `boolean`
     private currRoteSegment: RouteSegment;
-    constructor(private router: Router, private _zone: NgZone) {
+  //  constructor(private router: Router, private _zone: NgZone) {
+     // private  _zone:NgZone ;
+      //private router: Router
+      
+    constructor( private router: Router) {
+        super();
         const mql: MediaQueryList = window.matchMedia('(min-width: 600px)');
 
         //this.mySideNavMode = 'side';  //`mode` | `"over"|"push"|"side"` | 
         //this.mySideNavOpened=true;
         this.mySideNavOpened = mql.matches;
         this.mySideNavMode = mql.matches ? 'side' : 'over';  //`mode` | `"over"|"push"|"side"` | 
-
+        
+        let _zone=MeteorApp.ngZone();
 
         mql.addListener((mql: MediaQueryList) => {
             // document.body.querySelector('#element').innerHTML = this.getText(mql);
 
-            _zone.run(() => {
+           _zone.run(() => {
                 //  var mySideNav= document.body.querySelector('#start');
                 //   if (mySideNav.ha)
                 this.mySideNavOpened = mql.matches;

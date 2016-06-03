@@ -22,6 +22,12 @@ import {ANGULAR2_GOOGLE_MAPS_DIRECTIVES} from 'angular2-google-maps/core';
 import { Accounts } from 'meteor/accounts-base';
 import { Tracker } from 'meteor/tracker';
 
+
+import {MdButton} from '@angular2-material/button/button';
+import {MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
+import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
+import {MdIcon} from '@angular2-material/icon/icon';
+
 export var myRouter: Router;
 
 
@@ -30,7 +36,9 @@ export var myRouter: Router;
     viewProviders: [PaginationService],
     templateUrl: '/client/parties-list/parties-list.html',
     //directives: [ANGULAR2_GOOGLE_MAPS_DIRECTIVES, PartiesForm, RouterLink,  PaginationControlsCmp],
-    directives: [ANGULAR2_GOOGLE_MAPS_DIRECTIVES, PartiesForm, ROUTER_DIRECTIVES, PaginationControlsCmp],
+    directives: [ANGULAR2_GOOGLE_MAPS_DIRECTIVES, ROUTER_DIRECTIVES,
+        PartiesForm, PaginationControlsCmp,
+        MD_CARD_DIRECTIVES, MdButton, MD_LIST_DIRECTIVES, MdIcon],
     pipes: [PaginatePipe, RsvpPipe]
 })
 //@InjectUser('currentUser')
@@ -58,20 +66,22 @@ export class PartiesList extends MeteorComponent implements CanDeactivate {
         });
 
         this.autorun(() => {
+             this.user = Meteor.user();  // monitor user
             this.partiesSize = Counts.get('numberOfParties');
         }, true);
 
-        this.user = Meteor.user();
+       // this.user = Meteor.user();
 
 
         myRouter = router;
 
         Tracker.autorun(function () {
+            
             if (Meteor.userId()) {
                // console.log('tracker run user login in ....');
                 //this.router.navigate(['xxx',xxx]); # 有參數
                 //ex:this.router.navigate([`/heroes`, {id: heroId, foo: 'foo'}]);
-                //   myRouter.navigate(['/home']);
+                 
             } else {
                // console.log('tracker run user login out ....');
                     myRouter.navigate(['/']);
@@ -83,6 +93,7 @@ export class PartiesList extends MeteorComponent implements CanDeactivate {
 
         Accounts.onLogin(() => {
             console.log('on login ...');
+            myRouter.navigate(['/']); // refresh it
         });
 
         Accounts.onLoginFailure(() => {

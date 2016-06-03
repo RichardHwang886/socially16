@@ -1,5 +1,10 @@
 import {Component} from '@angular/core';
-
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
+import {MdButton} from '@angular2-material/button/button';
+import {MdCard} from '@angular2-material/card/card';
+import {MdCheckbox} from '@angular2-material/checkbox/checkbox';
+import {MdIcon} from '@angular2-material/icon/icon';
+import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {FormBuilder, Control, ControlGroup, Validators} from '@angular/common';
 
 import {Parties} from '../../collections/parties';
@@ -7,7 +12,8 @@ import { Meteor } from 'meteor/meteor';
 
 @Component({
     selector: 'parties-form',
-    templateUrl: '/client/parties-form/parties-form.html'
+    templateUrl: '/client/parties-form/parties-form.html',
+     directives: [MdCard, MdCheckbox, MdButton, MdIcon, MdToolbar, MD_INPUT_DIRECTIVES]
 })
 export class PartiesForm {
     partiesForm: ControlGroup;

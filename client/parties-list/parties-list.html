@@ -1,41 +1,101 @@
-<div>
-    <parties-form [hidden]="!user" style="float: left"></parties-form>
+<div class="demo-button">
+    <section>
+        <parties-form [hidden]="!user" style="float: left"></parties-form>
+    </section>
     <div [hidden]="user">You need to login to create new parties!</div>
-    <button type="button" (click)="btnClick()">home2</button>
-        
-    <div>
-        <input type="text" #searchtext placeholder="Search by Location">
-        <button type="button" (click)="search(searchtext.value)">Search</button>
-        <!--<accounts-ui></accounts-ui>-->
-    </div>
-
-    <h1>Parties:</h1>
-    <div>
-        <select #sort (change)="changeSortOrder(sort.value)">
-      <option value="1" selected>Ascending</option>
-      <option value="-1">Descending</option>
-    </select>
-    </div>
-    <ul>
-        <li *ngFor="let party of parties | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: partiesSize}">
-            <!--<a [routerLink]="['/PartyDetails', {partyId: party._id}]">{{party.name}}</a>-->
-            <!--<a [routerLink]="['/user', 'loggedInUser.id', 'settings']"> ng2 route 呼叫方式-->
-            <a [routerLink]="['/PartyDetails',party._id]">{{party.name}}</a>
-            <p>{{party.description}}</p>
-            <p>{{party.location.name}}</p>
-            <button [hidden]="!isOwner(party)" (click)="removeParty(party)">X</button>
-             <!--Who is coming: Yes - {{party | rsvp:'yes'}} Maybe - {{party | rsvp:'maybe'}} No - {{party | rsvp:'no'}}-->
-           
-            <div>
-               Who is coming: Yes - {{party | rsvp:['yes']}} Maybe - {{party | rsvp:['maybe']}} No - {{party | rsvp:['no']}}
-           </div>
-        </li>
-    </ul>
-    <sebm-google-map [latitude]="0" [longitude]="0" [zoom]="1">
-        <div *ngFor="let party of parties">
-            <sebm-google-map-marker *ngIf="party.location.lat" [latitude]="party.location.lat" [longitude]="party.location.lng">
-            </sebm-google-map-marker>
+    <!--<button type="button" (click)="btnClick()">home2</button>-->
+    <section>
+        <div>
+            <input type="text" #searchtext placeholder="Search by Location">
+            <button type="button" (click)="search(searchtext.value)">Search</button>
+            <!--<accounts-ui></accounts-ui>-->
         </div>
+
+        <h1>Parties:</h1>
+        <div>
+            <select #sort (change)="changeSortOrder(sort.value)">
+              <option value="1" selected>Ascending</option>
+              <option value="-1">Descending</option>
+            </select>
+        </div>
+        <h3 md-subheader>filter key word:xxx</h3>
+    </section>
+    <section>
+
+        <!--<md-list>-->
+
+        <div class="demo-card-container">
+            <!--<md-list-item *ngFor="let party of parties | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: partiesSize}">-->
+            <!--<img md-list-avatar [src]="message.image" alt="Image of {{message.from}}">-->
+            <!--<h4 md-line> <a [routerLink]="['/PartyDetails',party._id]">{{party.name}}</a></h4>
+                    <p md-line> {{party.description}} </p>
+                    <p md-line class="demo-secondary-text">{{party.location.name}} </p>
+                    <button [hidden]="!isOwner(party)" (click)="removeParty(party)">X</button>
+                    <div>
+                        Who is coming: Yes - {{party | rsvp:['yes']}} Maybe - {{party | rsvp:['maybe']}} No - {{party | rsvp:['no']}}
+                    </div>-->
+
+
+            <md-card *ngFor="let party of parties | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: partiesSize}">
+
+                <md-card-title><a [routerLink]="['/PartyDetails',party._id]">{{party.name}}</a></md-card-title>
+                <button md-button class='pull-right' [hidden]="!isOwner(party)" (click)="removeParty(party)">X</button>
+
+                <md-card-subtitle>{{party.description}}</md-card-subtitle>
+                <!--<img md-card-md-image>-->
+                <md-card-content>
+                    <p>{{party.location.name}} </p>
+                </md-card-content>
+                <md-card-actions>
+                    <div>
+                        Who is coming: Yes - {{party | rsvp:['yes']}} Maybe - {{party | rsvp:['maybe']}} No - {{party | rsvp:['no']}}
+                    </div>
+                </md-card-actions>
+
+            </md-card>
+
+            <!--</md-list-item>-->
+        </div>
+        <!--</md-list>-->
+
+
+
+
+        <!--<ul>
+            <li *ngFor="let party of parties | paginate:{currentPage: 1, itemsPerPage: pageSize, totalItems: partiesSize}">
+                <--<a [routerLink]="['/PartyDetails', {partyId: party._id}]">{{party.name}}</a>--
+                <--<a [routerLink]="['/user', 'loggedInUser.id', 'settings']"> ng2 route 呼叫方式--
+                <a [routerLink]="['/PartyDetails',party._id]">{{party.name}}</a>
+                <p>{{party.description}}</p>
+                <p>{{party.location.name}}</p>
+                <button [hidden]="!isOwner(party)" (click)="removeParty(party)">X</button>
+                <--Who is coming: Yes - {{party | rsvp:'yes'}} Maybe - {{party | rsvp:'maybe'}} No - {{party | rsvp:'no'}}--
+
+                <div>
+                    Who is coming: Yes - {{party | rsvp:['yes']}} Maybe - {{party | rsvp:['maybe']}} No - {{party | rsvp:['no']}}
+                </div>
+            </li>
+        </ul>-->
+    </section>
+
+    <sebm-google-map [latitude]="24" [longitude]="120.7" [zoom]="8">
+        <!--<div *ngFor="let party of parties">-->
+        <!--'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl']-->
+        <sebm-google-map-marker *ngFor="let party of parties"  [label]="party.location.name" [latitude]="party.location.lat" [longitude]="party.location.lng">
+            <sebm-google-map-info-window>
+                <strong>{{party.location.name}}</strong>
+            </sebm-google-map-info-window>
+        </sebm-google-map-marker>
+        <!--</div>-->
+
+        <!--<sebm-google-map-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+
+            <sebm-google-map-info-window>
+                <strong>InfoWindow content</strong>
+            </sebm-google-map-info-window>
+
+        </sebm-google-map-marker>-->
+
     </sebm-google-map>
     <pagination-controls (change)="onPageChanged($event.page)"></pagination-controls>
 </div>

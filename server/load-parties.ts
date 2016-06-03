@@ -8,7 +8,9 @@ export function loadParties() {
             'name': 'Dubstep-Free Zone',
             'description': 'Can we please just for an evening not listen to dubstep.',
             'location': {
-                name: 'Palo Alto'
+                name: 'Taichung Taiwan',
+                lat: 24.1654604,
+                lng: 120.694755
             },
             'public': true
         },
@@ -16,7 +18,9 @@ export function loadParties() {
             'name': 'All dubstep all the time',
             'description': 'Get it on!',
             'location': {
-                name: 'Palo Alto'
+                name: 'Taipei Taiwan',
+                lat: 25.155267,
+                lng: 121.552572
             },
             'public': true
         },
@@ -24,7 +28,9 @@ export function loadParties() {
             'name': 'Savage lounging',
             'description': 'Leisure suit required. And only fiercest manners.',
             'location': {
-                name: 'San Francisco'
+                name: 'Tainan Taiwan',
+                lat:22.996881,
+                lng:120.202667
             },
             'public': false
         }
